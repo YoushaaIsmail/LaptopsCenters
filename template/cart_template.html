@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .my-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 3%;
+        background-color: #b2ceeb !important;
+    }
+
+    .my-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .my-card-wrapper {
+        flex: 0 0 48%;
+    }
+
+    .my-card {
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .my-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .my-card-body {
+        padding: 15px;
+    }
+
+    .my-card-title {
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+    }
+
+    .my-card-text {
+        font-size: 0.95rem;
+        margin-bottom: 15px;
+    }
+
+    .my-btn {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .my-btn:hover {
+        background-color: #0056b3;
+    }
+
+    .my-alert {
+        padding: 15px;
+        background-color: #ffc107;
+        color: #856404;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+
+    .my-center {
+        text-align: center;
+    }
+
+    @media (max-width: 768px) {
+        .my-card-wrapper {
+            flex: 0 0 100%;
+        }
+    }
+</style>
+
+<div class="my-container">
+    <h2 class="mb-4 my-center">All Your Carts</h2>
+
+    {% if carts %}
+        <div class="my-grid">
+            {% for cart in carts %}
+                <div class="my-card-wrapper">
+                    <div class="my-card">
+                        {% if cart.photo %}
+                            <img src="{{ cart.photo.url }}" alt="Cart Image">
+                        {% endif %}
+                        <div class="my-card-body">
+                            <h5 class="my-card-title">Cart ID: {{ cart.id }}</h5>
+                            <p class="my-card-text">
+                                Total Amount: {{ cart.Amount }}<br>
+                                Shipping Cost: {{ cart.shipping_cost }}<br>
+                                Grand Total: {{ cart.Amount|add:cart.shipping_cost }}<br>
+                                State: {{ cart.State }}<br>
+                            </p>
+
+                            <form action="{% url 'cart_detail' %}" method="post" enctype="multipart/form-data" style="display: inline;">
+                                {% csrf_token %}
+                                <input name="idt" type="hidden" value="{{ cart.idten }}">
+                                <input name="idca" type="hidden" value="{{ cart.id }}">
+
+                                <button class="my-btn mb-2">
+                                    View Details 
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="my-alert my-center">
+            No carts found.
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

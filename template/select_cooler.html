@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Cooler</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body style="background-color: #b2ceeb !important;">
+<div class="container mt-5">
+    <h2 class="mb-4">Select Cooler</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            {% for cooler in coolers %}
+                <div class="col-md-4">
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-body">
+                        <a href="{{cooler.link}}">    <h5 class="card-title">{{ cooler.name }}</h5></a>
+                            <p class="card-text">
+                                Supported Sockets: {{ cooler.supported_sockets }}<br>
+                                TDP Rating: {{ cooler.tdp_rating }} W<br>
+                                Height: {{ cooler.height }} mm
+                            </p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="cooler" value="{{ cooler.id }}" id="cooler{{ cooler.id }}" required>
+                                <label class="form-check-label" for="cooler{{ cooler.id }}">
+                                    Choose this Cooler
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-primary">Next</button>
+    </form>
+</div>
+</body>
+</html>

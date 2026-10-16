@@ -1,0 +1,484 @@
+{% load static%}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <style>
+        .container {
+            text-align: center;
+        }
+
+        .button {
+            margin: 10px;
+            padding: 10px;
+            background-color: #f2f2f2;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        .selected {
+            background-color: #ddd;
+        }
+
+        .time-slots {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .time-slot {
+            margin-bottom: 10px;
+        }
+    </style>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+        <title>crud dashboard</title>
+	    <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="{%static 'admin/css/bootstrap.min.css'%}">
+	    <!----css3---->
+        <link rel="stylesheet" href="{%static 'admin/css/custom.css'%}">
+		
+		
+		<!--google fonts -->
+	
+	    <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+	
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        
+	<!--google material icon-->
+      <link href="https://fonts.googleapis.com/css2?family=Material+Icons"rel="stylesheet">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+  </head>
+  <body>
+  
+
+<div class="wrapper">
+
+
+        <div class="body-overlay"></div>
+		
+		<!-------------------------sidebar------------>
+		     <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3><img style="border-radius: 10px;
+    width: 130px;
+    margin-left: 15%;
+    box-shadow: 1px 1px 1px gray;" src="{%static 'images/IMG_20250427_143731.png'%}" class="img-fluid"/></h3>
+            </div>
+            <ul class="list-unstyled components">
+			<li {% if var == 'dashboard' %}class="active"{% endif %}>
+                    <a href="#" class="dashboard"><i class="material-icons">dashboard</i>
+					<span>Dashboard</span></a>
+                </li>
+		
+
+                <li class="dropdown {% if var == 'CPU' %}active{% endif %}">
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" 
+					class="dropdown-toggle" id="a1">
+					<i >
+            <span class="material-symbols-outlined">
+memory
+</span>
+          </i>CPU</a>
+                    <ul class="collapse list-unstyled menu" id="homeSubmenu1">
+
+                        <li>
+                            <a href="{% url 'centerappp:getAllCPU' %}">ALLCPU</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'centerappp:getLowCPU' %}">Low</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'centerappp:getHighCPU' %}">High</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'centerappp:getMediumCPU' %}">Medium</a>
+                        </li>
+
+    </ul>
+                </li>
+
+                
+                <li class="dropdown {% if var == 'GPU' %}active{% endif %}">
+                    <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" 
+					class="dropdown-toggle">
+				<i class="material-symbols-outlined">
+select_all
+        </i>VGA</a>
+                    <ul class="collapse list-unstyled menu" id="pageSubmenu2">
+       
+                       <li>
+                            <a href="{% url 'centerappp:getALLGPU' %}">AllGPU</a>
+                        </li> 
+                      <li>
+                            <a href="{% url 'centerappp:getLowGPU' %}">LOW</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'centerappp:getHighGPU' %}">High</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'centerappp:getMediumGPU' %}">Medium</a>
+                        </li>
+      </ul>
+                </li>
+				
+				  <li class="dropdown {% if var == 'RAM' %}active{% endif %}">
+                    <a href="{% url 'centerappp:getAllRAM' %}">
+				<i class="material-symbols-outlined">
+memory_alt
+        </i><span>RAM</span></a>
+                  </li>
+          <li class="dropdown {% if var == 'HARD' %}active{% endif %}">
+                    <a href="{% url 'centerappp:getAllHARD' %}">
+				<i class="material-symbols-outlined">
+storage
+        </i><span>HARD</span></a>
+                  </li>
+
+                    <li class="dropdown {% if var == 'Motherboard' %}active{% endif %}">
+                    <a href="{% url 'centerappp:getAllMotherboard' %}">
+<i class="material-symbols-outlined">
+developer_board
+</i><span>Motherboard</span></a>
+                  </li>
+				
+				<li class="dropdown {% if var == 'PSU' %}active{% endif %}">
+                    <a href="{% url 'centerappp:getAllPS' %}" >
+       <i class="material-symbols-outlined">
+dynamic_form
+       </i><span>PSU</span></a>
+                    
+                </li>
+         			<li class="dropdown {% if var == 'Sections' %}active{% endif %}">
+                    <a href="{% url 'centerappp:getAllCooler' %}" >
+      <i class="material-symbols-outlined">
+mode_fan
+      </i><span>Cooler</span></a>
+                    
+                </li>
+
+                	<li class="dropdown {% if var == 'Sections' %}active{% endif %}">
+                    <a href="{% url 'centerappp:getAllCarts' %}" >
+      <i class="material-symbols-outlined">
+shop
+      </i><span>Cart</span></a>
+                    
+                </li>
+
+                                	<li class="dropdown {% if var == 'Sections' %}active{% endif %}">
+                    <a href="{% url 'centerappp:getAllPaymentMonth' %}" >
+      <i class="material-symbols-outlined">
+money
+      </i><span>paymentMonth</span></a>
+                    
+                </li>
+               
+               
+			   
+
+                 <li {% if var == 'Monitor' %}class="active"{% endif %}>
+                    <a href="{% url 'centerappp:getAllNewComputer'%}"><i class="material-icons"><span class="material-symbols-outlined">
+                      computer
+                      </span></i><span>NewComputer
+					</span></a>
+                </li>
+               
+                                 <li {% if var == 'Monitor' %}class="active"{% endif %}>
+                    <a href="{% url 'centerappp:getAllLaptops'%}"><i class="material-icons"><span class="material-symbols-outlined">
+                      laptop
+                      </span></i><span>Laptops
+					</span></a>
+                </li>
+
+                                                 <li {% if var == 'Monitor' %}class="active"{% endif %}>
+                    <a href="{% url 'centerappp:getBC'%}"><i class="material-icons"><span class="material-symbols-outlined">
+                      laptop
+                      </span></i><span>BuildComputer
+					</span></a>
+                </li>
+
+                                                 <li {% if var == 'Monitor' %}class="active"{% endif %}>
+                    <a href="{% url 'centerappp:getallRating'%}"><i class="material-icons"><span class="material-symbols-outlined">
+                      star
+                      </span></i><span>Review
+					</span></a>
+                </li>
+                
+			          <li {% if var == 'about' %}class="active"{% endif %}>
+                    <a href="{% url 'centerappp:aboutadmin'%}"><i class="material-icons"><span class="material-symbols-outlined">
+                      settings_heart
+                      </span></i><span>about
+					</span></a>
+                </li>
+               
+               
+            </ul>
+
+           
+        </nav>
+		
+		
+		
+		
+		<!--------page-content---------------->
+		
+		<div id="content">
+		   
+		   <!--top--navbar----design--------->
+		   
+		   <div class="top-navbar">
+		      <div class="xp-topbar">
+
+                <!-- Start XP Row -->
+                <div class="row"> 
+                    <!-- Start XP Col -->
+                    <div class="col-2 col-md-1 col-lg-1 order-2 order-md-1 align-self-center">
+                        <div class="xp-menubar">
+                               <span class="material-icons text-white">signal_cellular_alt
+							   </span>
+                         </div>
+                    </div> 
+                    <!-- End XP Col -->
+
+                    <!-- Start XP Col -->
+                    <div class="col-md-5 col-lg-3 order-3 order-md-2">
+                        <div class="xp-searchbar">
+                            <form action="{% url 'centerappp:searchEl'%}"  method="post" enctype="multipart/form-data">
+                              {% csrf_token %} 
+                                <div class="input-group">
+                                  <input type="hidden" name="type" value="{{var}}">
+                             
+                                 {% if var == 'CPU' %}
+                                  <input type="text" name="search" style="background-color: white;" class="form-control" placeholder="Search">
+                                 
+                                  
+                                 {% elif var == 'GPU' %}
+                                  <input type="text" name="search"  style="background-color: white;" class="form-control" placeholder="Search">
+                                                                   
+                                 {% elif var == 'RAM' %}
+                                  <input type="text" name="search"  style="background-color: white;" class="form-control" placeholder="Search">
+                                  {% elif var == 'HARD' %}
+                                  <input type="text" name="search"  style="background-color: white;" class="form-control" placeholder="Search">
+                                  {% elif var == 'Motherboard' %}
+                                  <input type="text" name="search"  style="background-color: white;" class="form-control" placeholder="Search">
+                                  {% elif var == 'PSU' %}
+                                  <input type="text" name="search"  style="background-color: white;" class="form-control" placeholder="Search">
+                                  {% elif var == 'Cooler' %}
+                                  <input type="text" name="search"  style="background-color: white;" class="form-control" placeholder="Search">
+                                 {% else %} 
+                                 <input type="search" name="search"  style="background-color: white;display: none;" class="form-control" placeholder="Search">
+                                 {% endif %}
+                                  
+                                  <div class="input-group-append">
+                                    <button  style="background-color: #60b5e2;" class="btn" type="submit" id="button-addon2">GO</button>
+                                  </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- End XP Col -->
+
+                    <!-- Start XP Col -->
+                    <div class="col-10 col-md-6 col-lg-8 order-1 order-md-3">
+                        <div class="xp-profilebar text-right">
+							 <nav class="navbar p-0">
+                        <ul class="nav navbar-nav flex-row ml-auto">   
+                            <li class="dropdown nav-item active">
+                                <a href="{% url 'centerappp:logout_view'%}" >
+                                   <span class="material-icons">logout</span>
+								   <!-- <span class="notification">4</span> -->
+                               </a>
+                                <!-- <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#">You have 5 new messages</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">You're now friend with Mike</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Wish Mary on her birthday!</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">5 warnings in Server Console</a>
+                                    </li>
+                                  
+                                </ul> -->
+                            </li>
+                            <!-- <li class="nav-item">
+                                <a class="nav-link" href="#">
+								<span class="material-icons">question_answer</span>
+
+								</a>
+                            </li> -->
+                            <!-- <li class="nav-item dropdown">
+                                <a class="nav-link" href="#" data-toggle="dropdown">
+								<img src="{{user.photo.url}}" style="width:70px; border-radius:20%;"/>
+								<span class="xp-user-live"></span>
+								</a>
+								<ul class="dropdown-menu small-menu">
+                                    <li>
+                                        <a href="#myprofile" data-toggle="modal">
+										  <span class="material-icons">
+person_outline
+</span>Profile
+
+										</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><span class="material-icons">
+settings
+</span>ChangePassword</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><span class="material-icons">
+logout</span>Logout</a>
+                                    </li>
+                                </ul>
+                            </li> -->
+                        
+                        </ul>
+                    
+               
+            </nav>
+							
+                        </div>
+                    </div>
+                    <!-- End XP Col -->
+
+                </div> 
+                <!-- End XP Row -->
+
+            </div>
+            
+		     <div class="xp-breadcrumbbar text-center">
+                <h4 class="page-title">Dashboard</h4>  
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Booster</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                  </ol>                
+            </div>
+			
+		   </div>
+		   
+
+           <div id="myprofile" class="modal fade">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <form action="#"  method="post" enctype="multipart/form-data">
+                  {% csrf_token %} 
+                  <div class="modal-header">
+                    <h4 class="modal-title">My Profile</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-group">
+           
+                        <label>   <img src="{{user.photo.url}}" style="width:60px; height: 60px; border-radius:20%;"/>
+                                          <span class="xp-user-live"></span></label>
+                        <input type="file" name="photo">
+                      </div>
+                   
+                    <div class="form-group">
+                      <label>Name</label>
+                      <p class="form-control">{{user.username}}</p>
+<!--                       
+                      <input type="text" class="form-control" name="name" value="{{user.username}}" required>
+                    </div> -->
+          
+                    <div class="form-group">
+                      <label>Email</label>   
+                      <p class="form-control">{{user.email}}</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>phone</label>   
+                        <input type="text" class="form-control" name="phone" value="{{user.phone}}" required>
+                      </div>
+                      
+                    <div class="form-group">
+                        <label>Address</label>   
+                        <input type="text" class="form-control" name="address" value="{{user.address}}" required>
+                      </div>
+                      
+                    <div class="form-group">
+                        <label>Email</label>   
+                        <p class="form-control">{{user.gender}}</p>
+                      </div>
+                      
+                    <div class="form-group">
+                        <label>Email</label>   
+                        <p class="form-control">{{user.birthday}}</p>
+                      </div>
+                      
+       
+          
+                   
+                  </div>
+                  <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-success" value="Add">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div></div>
+          
+    {% block content%}
+    {% endblock %}
+    
+
+
+<!----------html code compleate----------->
+
+
+
+
+
+
+
+
+  
+     <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{%static 'admin/js/jquery-3.3.1.slim.min.js'%}"></script>
+    <script src="{%static 'admin/js/popper.min.js'%}"></script>
+    <script src="{%static 'admin/js/bootstrap.min.js'%}"></script>
+    <script src="{%static 'admin/js/jquery-3.3.1.min.js'%}"></script>
+    
+   <script type="text/javascript">
+         
+       $(document).ready(function(){
+         $(".xp-menubar").on('click',function(){
+           $('#sidebar').toggleClass('active');
+          $('#content').toggleClass('active');
+         });
+         
+          $(".xp-menubar,.body-overlay").on('click',function(){
+            $('#sidebar,.body-overlay').toggleClass('show-nav');
+          });
+         
+       });
+
+    
+function setEditId(id) {
+    document.getElementById('iddoctor').value = id;
+  }
+
+  function setDeleteId(id) {
+    document.getElementById('iddoctor1').value = id;
+  } 
+  p=document.getElementById("ChatImg")
+  n=document.getElementById("Chatname")
+  function setchat(p1,n1){
+    
+    p.src =p1;
+    n.value=n1;
+  }
+ </script>
+</body>
+</html>

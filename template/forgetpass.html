@@ -1,0 +1,33 @@
+{% load static%}
+<head>
+<style>
+    .thiscalss{ padding: 10px; border: 1px solid white;border-radius: 10px;box-shadow: 7px 7px 10px rgb(139, 171, 195);background-color: #b5e7f9;min-width: 400px;margin-top: 10px;position: absolute;}
+  .thisclass1{
+    color: white;text-align: center;background-color: #60b6e3;padding: 5px;border-radius: 10px;
+  }
+  .inputClass{margin-top: -15px; height: 30px; width: -webkit-fill-available;}
+</style>
+</head>
+<body style="background: rgb(211, 227, 247);display:flex; justify-content: center;">
+  
+  <div class="thiscalss">
+    <div>
+      <h1 class="thisclass1">OTP</h1>
+     </div>
+    <div> 
+        <form  method="post" enctype="multipart/form-data">
+          {% csrf_token %} 
+    <div>
+      <h2 style="color: 3b90be;">Email :</h2>
+      <input class="inputClass" name="email">
+
+    </div>
+    <div style="display: grid;margin: 20px;">
+        <button class="thisclass1" style="font-weight: bolder; display: block;" >get Code</button>
+      </div>
+        </form>
+    
+
+</div>
+
+</body>

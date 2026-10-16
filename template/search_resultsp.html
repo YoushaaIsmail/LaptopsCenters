@@ -1,0 +1,33 @@
+{% extends 'base.html'%}
+{% load static%}
+
+{% block content%}
+
+{% if results %}
+    <h2 style="text-align: center;margin-top: 7%;">Search Results</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 20px;">
+        {% for item in results %}
+            <div style="border: 1px solid #ddd; border-radius: 10px; padding: 15px; box-shadow: 2px 2px 8px #aaa;
+            max-height: 500px; max-width: 400px;">
+                {% if item.tenant_photo %}
+                    <img src="{{ item.tenant_photo }}" alt="{{ item.tenant_name }}" style="width: 100%; border-radius: 10px;">
+                {% endif %}
+                <h3>{{ item.name }} ({{ item.type }})</h3>
+                <p><strong>Price:</strong> {{ item.price }}</p>
+                <p><strong>Count:</strong> {{ item.count }}</p>
+                {% if item.link %}
+                    <p><strong>Link:</strong> <a href="{{ item.link }}" target="_blank">{{ item.link }}</a></p>
+                {% endif %}
+                <p><strong>Tenant:</strong> {{ item.tenant_name }}</p>
+                <p>{{ item.tenant_Des }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p style="text-align: center;">No results found.</p>
+{% endif %}
+
+<div style="text-align: center; margin-top: 20px;">
+    <a href="{% url 'search_product_element' %}" style="padding: 10px 20px; background-color: #333; color: white; border-radius: 5px; text-decoration: none;">Back to Search</a>
+</div>
+  {% endblock %}

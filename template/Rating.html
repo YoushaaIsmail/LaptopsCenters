@@ -1,0 +1,103 @@
+{% extends 'base1.html' %}
+{% load static %}
+
+{% block content %}
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="analysis">
+                <h3>Positive vs Negative Ratings Over Time</h3>
+                <canvas id="ratingTrendChart"></canvas>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <script>
+                    const ctx = document.getElementById('ratingTrendChart').getContext('2d');
+                    const ratingTrendChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: {{ dates|safe }},
+                            datasets: [{
+                                label: 'Positive Ratings',
+                                data: {{ positive_counts|safe }},
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                fill: false,
+                                tension: 0.1
+                            }, {
+                                label: 'Negative Ratings',
+                                data: {{ negative_counts|safe }},
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                fill: false,
+                                tension: 0.1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                </script>
+            </div>
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
+                            <h2 class="ml-lg-2">Manage Rating</h2>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th><span class="custom-checkbox"><input type="checkbox" id="selectAll"><label for="selectAll"></label></span></th>
+                            <th>HisUser2</th>
+                            <th>text</th>
+                            <th>Star</th>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in Ratings %}
+                        <tr>
+                            <td></td>
+                            <td>{{ i.HisUser2 }}</td>
+                            <td>{{ i.text }}</td>
+                            <td>{{ i.Star }}</td>
+                            <td>{{ i.Date }}</td>
+                            <td>{{ i.Type }}</td>
+                            <td>
+                                <a href="{% url 'centerappp:getUserCarts' iduser=i.HisUser2.id %}"><i class="material-icons" data-toggle="tooltip" title="Edit">SHOW</i></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="clearfix">
+                    <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+                    <ul class="pagination">
+                        <li class="page-item disabled"><a href="#">Previous</a></li>
+                        <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                        <li class="page-item"><a href="#" class="page-link">2</a></li>
+                        <li class="page-item"><a href="#" class="page-link">3</a></li>
+                        <li class="page-item"><a href="#" class="page-link">4</a></li>
+                        <li class="page-item"><a href="#" class="page-link">5</a></li>
+                        <li class="page-item"><a href="#" class="page-link">Next</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="footer-in">
+                    <p class="mb-0">**TIKCOMPUTER**</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv='X-UA-Compatible' content='IE=Edge' />
+    <meta charset='UTF-8'>
+    <title>Maps SDK for Web - Specific Location</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'/>
+    <link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.25.1/maps/maps.css'>
+    <link rel='stylesheet' type='text/css' href="{% static 'admin/assets1/ui-library/index.css' %}"/>
+</head>
+<body>
+    <input type="hidden" id="latitude" value=" {{latitude}}">
+    <input type="hidden" id="longitude" value="{{longitude}}">
+    <div id='map' class='map'></div>
+    <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.25.1/maps/maps-web.min.js'></script>
+    <script type='text/javascript' src="{% static 'assets1/js/mobile-or-tablet.js' %}"></script>
+    <script>
+        // Define your product name and version
+        tt.setProductInfo('<your-product-name>', '<your-product-version>');
+    
+        // Create map with specific latitude and longitude
+        var offerLatitude = document.getElementById('latitude').value;  // Latitude of the location
+        var offerLongitude = document.getElementById('longitude').value; // Longitude of the location
+    
+        var map = tt.map({
+            key: 'wncqPXyuwK1DoGAegYSHAJ5SyE3ATzh7',
+            container: 'map',
+            center: [offerLongitude, offerLatitude], // Set the center of the map
+            zoom: 14, // Adjust zoom level as necessary
+            dragPan: true // Allow dragging on the map
+        });
+    
+        // Add a marker (flag) at the specified location
+        var marker = new tt.Marker()
+            .setLngLat([offerLongitude, offerLatitude])
+            .addTo(map);
+    </script>
+</body>
+</html>

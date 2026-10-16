@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container py-5" style="margin-top: 5%;">
+  <div class="row">
+    <!-- صورة المنتج -->
+
+
+    <!-- تفاصيل المنتج -->
+    <div class="col-md-7">
+      <h2 class="mb-4">{{ computer.name }}</h2>
+      
+      <ul class="list-group mb-4">
+        <li class="list-group-item"><strong>Type:</strong> {{ computer.CPU.type }}</li>
+        <li class="list-group-item"><strong>CPU:</strong> {{ computer.CPU.name }} 
+          <a href="{{ computer.CPU.Link }}" target="_blank" class="btn btn-sm btn-outline-primary float-end">Link</a>
+        </li>
+        <li class="list-group-item"><strong>GPU:</strong> {{ computer.GPU.name }} 
+          <a href="{{ computer.GPU.Link }}" target="_blank" class="btn btn-sm btn-outline-primary float-end">Link</a>
+        </li>
+        <li class="list-group-item"><strong>Cooler:</strong> {{ computer.Cooler.name }} 
+          <a href="{{ computer.Cooler.Link }}" target="_blank" class="btn btn-sm btn-outline-primary float-end">Link</a>
+        </li>
+        <li class="list-group-item"><strong>PSU:</strong> {{ computer.PSU.name }} 
+          <a href="{{ computer.PSU.Link }}" target="_blank" class="btn btn-sm btn-outline-primary float-end">Link</a>
+        </li>
+        <li class="list-group-item"><strong>Storage:</strong> {{ computer.Storage.name }} 
+          <a href="{{ computer.Storage.Link }}" target="_blank" class="btn btn-sm btn-outline-primary float-end">Link</a>
+        </li>
+        <li class="list-group-item"><strong>RAM:</strong> {{ computer.RAM.name }} 
+          <a href="{{ computer.RAM.Link }}" target="_blank" class="btn btn-sm btn-outline-primary float-end">Link</a>
+        </li>
+        <li class="list-group-item"><strong>Motherboard:</strong> {{ computer.Motherboard.name }} 
+          <a href="{{ computer.Motherboard.Link }}" target="_blank" class="btn btn-sm btn-outline-primary float-end">Link</a>
+        </li>
+   
+        <li class="list-group-item"><strong>Price:</strong> <span class="text-success fw-bold">${{ computer.price }}</span></li>
+        <li class="list-group-item"><strong>Count in Stock:</strong> {{ computer.min_cou }}</li>
+      </ul>
+       <form action="#"  method="post" enctype="multipart/form-data">
+        {% csrf_token %} 
+      <input name="count" style="margin-bottom: 10px; background-color: rgba(128, 128, 128, 0.078);padding: 10px;" type="number" placeholder="inter Count" />
+      
+  <button class="btn btn-success">Order Now</button>
+      
+      <a href="{% url 'showcenterNPC' %}"  class="btn btn-success" style="background-color: rgb(255, 4, 4);">Back</a>
+       </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

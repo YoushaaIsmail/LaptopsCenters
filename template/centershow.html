@@ -1,0 +1,217 @@
+{% extends 'base.html'%}
+{% load static%}
+
+{% block content%}
+
+  <main>
+    <article>
+
+      <!-- 
+        - #HERO
+      -->
+
+
+      <section class="section hero" id="home">
+        <div class="container">
+
+          <div class="hero-content hero-content1" >
+            <img class="imgshowcenter" src="{{ about.photo.url }}">
+            <h2 class="h1 hero-title hero1" >{{about.name}}</h2>
+
+            <p class="hero-text hero1" >
+              {{ about.Des}}
+            </p>
+          </div>
+
+           <div >
+            <img class="hero-banner"  src="{{about.photo.url}}">
+          </div>
+
+
+          <form action="" class="hero-form" style="grid-template-columns:1fr 0.5fr 0.5fr;
+          max-width: 450px;">
+
+            <div class="input-wrapper" style="display: flex;">
+              <a href="{% url 'showlocation' idt=tenant.id %}"><ion-icon name="location" style="color: rgb(0, 145, 255);"></ion-icon></a>
+              <label for="input-1" class="input-label" style="margin-left: 3px">{{about.Address}}</label>
+
+              <!-- <input type="text" name="car-model" id="input-1" class="input-field"
+                placeholder="What car are you looking?"> -->
+            </div>
+
+            <div class="input-wrapper" style="display: flex;">
+            <a href="{% url 'showRating' idt=tenant.id %}">  <ion-icon name="star" style="color: rgb(0, 145, 255);"></ion-icon></a>
+                <label for="input-1" class="input-label" style="margin-left: 3px"> Rating({{countRat1}})</label>
+  
+                <!-- <input type="text" name="car-model" id="input-1" class="input-field"
+                  placeholder="What car are you looking?"> -->
+              </div>
+              
+              <div class="input-wrapper" style="display: flex;">
+                 <a href="{% url 'showFav' idt=tenant.id %}"> <ion-icon name="heart" style="color: rgb(0, 145, 255);"></ion-icon></a>
+                <label for="input-1" class="input-label" style="margin-left: 3px"> Favourite({{countFa1}})</label>
+  
+                <!-- <input type="text" name="car-model" id="input-1" class="input-field"
+                  placeholder="What car are you looking?"> -->
+              </div>
+            <!-- <button type="submit" class="btn">Search</button> -->
+
+          </form>
+
+        </div>
+      </section>
+  {% if messages %}
+        <div  id="message-container" class="message-container" style="            color: #0d47d8;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #58afbb;
+            border-radius: 5px;
+            text-align: center;" >
+            {% for message in messages %}
+            <div
+             {% if message.tags == 'error' %} 
+             style="background-color: #ec8383;border-radius: 2px;padding:5px;" 
+             {% else %}
+             style="background-color: #0ea0c8;border-radius: 2px;padding:5px;" 
+             {% endif %}
+            class="alert alert-danger alert-dismissible fade show" role="alert">
+             
+                    {{ message }}
+               
+                
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <script>
+            setTimeout(function () {
+                const container = document.getElementById("message-container");
+                if (container) {
+                    container.style.display = "none";
+                }
+            }, 5000);
+        </script>
+
+
+<section>
+  <div style="display: flex;justify-content: space-around;font-size: 1rem;background-color: rgb(170, 197, 240);
+  border-radius: 10px;padding: 10px;margin: 10px;">
+   <a href="{% url 'showcenterNPC' %}">  <h4 class="btn" style="min-width: 10%;">New Computers</h4></a>
+    <a href="{% url 'showcenterLaptop' %}"> <h4 class="btn" style="min-width: 10%;">Laptops</h4></a>
+    <a href="{% url 'showcenterBC' %}">   <h4 class="btn" style="min-width: 10%;">Build Computers</h4></a>
+    <a href="{% url 'showcenterProdect' %}">    <h4 class="btn" style="min-width: 10%;">Prodects</h4></a>
+   
+
+  </div>
+</section>
+
+
+      <!-- 
+        - #FEATURED CAR
+      -->
+
+      <section class="section featured-car" id="featured-car">
+        <div class="container">
+
+          <div class="title-wrapper">
+            <h2 class="h2 section-title">New Computer</h2>
+
+           
+          </div>
+
+          <ul class="featured-car-list">
+          {% for i in NewCom %}
+            <li>
+              <div class="featured-car-card">
+
+
+                <figure class="card-banner">
+                  <img src="{{i.photo.url}}" alt="Toyota RAV4 2021" loading="lazy" width="440" height="300"
+                    class="w-100">
+                </figure>
+
+                <div class="card-content">
+
+                  <div class="card-title-wrapper">
+                    <h3 class="h3 card-title">
+                      <a href="#">{{i.name}}</a>
+                    </h3>
+
+                    <data class="year" value="2021">{{i.type}}</data>
+                  </div>
+
+                  <ul class="card-list">
+
+                    <li class="card-list-item">
+                    <ion-icon name="pie-chart-outline"></ion-icon>
+
+                      <span class="card-item-text">{{i.Storage}}</span>
+                    </li>
+
+                    <li class="card-list-item">
+                      <ion-icon name="flash-outline"></ion-icon>
+
+                      <span class="card-item-text">{{i.GPU}}</span>
+                    </li>
+
+                    <li class="card-list-item">
+                      <ion-icon name="speedometer-outline"></ion-icon>
+
+                      <span class="card-item-text">{{i.RAM}}</span>
+                    </li>
+
+                    <li class="card-list-item">
+                      <ion-icon name="hardware-chip-outline"></ion-icon>
+
+                      <span class="card-item-text">{{i.CPU}}</span>
+                    </li>
+
+                  </ul>
+
+                  <div class="card-price-wrapper">
+
+                    <p class="card-price">
+                      <strong>${{i.price}}</strong> / price
+                    </p>
+
+             <a href="{% url 'new_computer_detail' i.id %}" class="btn">
+                    <button class="btn">Order Now</button></a>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </li>
+            {% endfor %}
+
+          </ul>
+
+        </div>
+      </section>
+
+
+      <!-- 
+        - #GET START
+      -->
+
+     
+
+
+
+      <!-- 
+        - #BLOG
+      -->
+
+    </article>
+  </main>
+
+
+
+
+
+  <!-- 
+    - #FOOTER
+  -->
+  {% endblock %}

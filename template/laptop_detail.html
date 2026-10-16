@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<div class="container mt-5">
+  <div class="card mx-auto" style="max-width: 700px;">
+    <img src="{{ laptop.photo.url }}" class="card-img-top" alt="{{ laptop.name }}">
+    <div class="card-body">
+      <h5 class="card-title">{{ laptop.name }}</h5>
+      <p class="card-text"><strong>Type:</strong> {{ laptop.type }}</p>
+      
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>CPU:</strong> {{ laptop.CPU }} 
+          <a href="{{ laptop.CPULink }}" target="_blank" class="btn btn-sm btn-outline-primary float-end">Link</a>
+        </li>
+        <li class="list-group-item"><strong>GPU:</strong> {{ laptop.GPU }} 
+          <a href="{{ laptop.GPULink }}" target="_blank" class="btn btn-sm btn-outline-primary float-end">Link</a>
+        </li>
+        <li class="list-group-item"><strong>Cooler:</strong> {{ laptop.Cooler }} 
+          <a href="{{ laptop.CoolerLink }}" target="_blank" class="btn btn-sm btn-outline-primary float-end">Link</a>
+        </li>
+        <li class="list-group-item"><strong>PSU:</strong> {{ laptop.PSU }} 
+          <a href="{{ laptop.PSULink }}" target="_blank" class="btn btn-sm btn-outline-primary float-end">Link</a>
+        </li>
+        <li class="list-group-item"><strong>Storage:</strong> {{ laptop.Storage }} 
+          <a href="{{ laptop.StorageLink }}" target="_blank" class="btn btn-sm btn-outline-primary float-end">Link</a>
+        </li>
+        <li class="list-group-item"><strong>RAM:</strong> {{ laptop.RAM }} 
+          <a href="{{ laptop.RAMLink }}" target="_blank" class="btn btn-sm btn-outline-primary float-end">Link</a>
+        </li>
+        <li class="list-group-item"><strong>Motherboard:</strong> {{ laptop.Motherboard }} 
+          <a href="{{ laptop.MotherboardLink }}" target="_blank" class="btn btn-sm btn-outline-primary float-end">Link</a>
+        </li>
+        <li class="list-group-item"><strong>Battery:</strong> {{ laptop.Battary }}</li>
+        <li class="list-group-item"><strong>Screen:</strong> {{ laptop.screen }}</li>
+        <li class="list-group-item"><strong>Company:</strong> {{ laptop.company }}</li>
+        <li class="list-group-item"><strong>Price:</strong> ${{ laptop.price }}</li>
+        <li class="list-group-item"><strong>Count in Stock:</strong> {{ laptop.count }}</li>
+      </ul>
+             <form action="#"  method="post" enctype="multipart/form-data">
+        {% csrf_token %} 
+        <input type="hidden" value="{{ computer.count }}" name="compid"/>
+      <input name="count" style="margin-bottom: 10px; background-color: rgba(128, 128, 128, 0.078);padding: 10px;" type="number" placeholder="inter Count" />
+      <button class="btn btn-success">Order Now</button>
+      
+      <a href="{% url 'showcenterLaptop' %}"   class="btn btn-success" style="background-color: rgb(255, 4, 4);">Back</a>
+       </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

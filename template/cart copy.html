@@ -1,0 +1,63 @@
+{% extends 'base1.html' %}
+{% load static %}
+
+{% block content %}
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
+                            <h2 class="ml-lg-2">Manage Cart</h2>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Photo</th>
+                            <th>User</th>
+                            <th>Shipping Cost</th>
+                            <th>Amount</th>
+                            <th>State</th>
+                           
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in carts %}
+                        <tr>                            <td>
+                                {% if i.photo %}
+                                <img src="{{ i.photo.url }}" style="width:60px; height:60px; border-radius:20%;">
+                                {% else %}
+                                No Paid yet
+                                {% endif %}
+                            </td>
+                             
+                            <td><a href="{% url 'centerappp:cartDetails' cart_id=i.id %}" >
+                                {{ i.user.username }}</a></td>
+                            <td>{{ i.shipping_cost }}</td>
+                            <td>{{ i.Amount }}</td>
+                            <td>{{ i.State }}</td>
+                            <td>{{ i.ispay }}</td>
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="clearfix">
+                    <div class="hint-text">Showing <b>{{ carts|length }}</b> entries</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="container-fluid">
+        <div class="footer-in">
+            <p class="mb-0">**TIKCOMPUTER**</p>
+        </div>
+    </div>
+</footer>
+{% endblock %}

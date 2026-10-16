@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select RAM</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body style="background-color: #b2ceeb !important;">
+<div class="container mt-5">
+    <h2 class="mb-4">Select RAM</h2>
+
+    {% if error_message %}
+        <div class="alert alert-danger">{{ error_message }}</div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            {% for ram in rams %}
+                <div class="col-md-4">
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-body">
+                            <a href="{{ ram.object.link }}"><h5 class="card-title">{{ ram.object.name }}</h5></a>
+                            <p class="card-text">
+                                Type: {{ ram.object.type }}<br>
+                                Speed: {{ ram.object.speed }} MHz<br>
+                                Capacity: {{ ram.object.capacity }} GB<br>
+                                Modules: {{ ram.object.modules }}<br>
+                                Available: {{ ram.object.count }} units<br>
+                                Motherboard Slots: {{ ram_slots }}
+                            </p>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="ram" value="{{ ram.object.id }}" id="ram{{ ram.object.id }}" required>
+                                <label class="form-check-label" for="ram{{ ram.object.id }}">
+                                    Choose this RAM
+                                </label>
+                            </div>
+                            <label for="ram_qty_{{ ram.object.id }}">Quantity (Max: {{ ram.max_quantity }})</label>
+                            <input type="number" name="ram_qty_{{ ram.object.id }}" id="ram_qty_{{ ram.object.id }}"
+                                   min="1"
+                                   max="{{ ram.max_quantity }}"
+                                   value="1"
+                                   class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-primary">Next</button>
+    </form>
+</div>
+</body>
+</html>

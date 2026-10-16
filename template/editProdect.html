@@ -1,0 +1,72 @@
+{% extends 'base1.html' %}
+{% load static %}
+
+{% block content %}
+<!--------main-content------------->
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table-wrapper">
+        <div class="table-title">
+          <div class="row">
+            <div class="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
+              <h2 class="ml-lg-2">Manage Product</h2>
+            </div>
+            <div class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
+              <!-- You can add buttons here if needed -->
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="modal-header">
+                <h4 class="modal-title">Edit Product</h4>
+              </div>
+
+              <div class="modal-body">
+                <div class="form-group">
+                  <label>Name</label>
+                  <input type="text" class="form-control" name="name" value="{{ prodect.name }}" required>
+                </div>
+                 <div class="form-group">
+                  <label>Des</label>
+                  <input type="text" class="form-control" name="Des" value="{{ prodect.Des }}" required>
+                </div>
+                <div class="form-group">
+                  <label>Count</label>
+                  <input type="number" class="form-control" name="count" value="{{ prodect.count }}" required>
+                </div>
+                <div class="form-group">
+                  <label>Photo</label><br>
+                  {% if prodect.photo %}
+                    <img src="{{ prodect.photo.url }}" alt="Current Image" style="width: 100px; height: auto; margin-bottom: 10px; border-radius: 8px;">
+                  {% endif %}
+                  <input type="file" class="form-control" name="photo">
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <a href="{% url 'centerappp:getAllProdect' %}" class="btn btn-default">Cancel</a>
+                <input type="submit" class="btn btn-success" value="Edit">
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!---footer----->
+  <footer class="footer">
+    <div class="container-fluid">
+      <div class="footer-in">
+        <p class="mb-0">**TIKCOMPUTER**</p>
+      </div>
+    </div>
+  </footer>
+</div>
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends 'base.html'%}
+{% load static%}
+
+{% block content%}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ✅ Ionic updated scripts -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+
+    <!-- ✅ jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <title>Message Receiver</title>
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            flex-direction: column;
+        }
+        #messages { list-style: none; padding: 0; margin: 0; }
+        .message { padding: 10px; border-bottom: 1px solid #ccc; }
+        .message:last-child { border-bottom: none; }
+        .sender { font-weight: bold; }
+        .message-text { margin-bottom: 10px; }
+        .timestamp { color: #666; font-size: 12px; }
+        .title {
+            background-color: #4185d4;
+            color: white;
+            display: inline-flex;
+            width: 100%;
+            text-align: center;
+            justify-content: space-between;
+            padding: 3%;
+            border-radius: 10px;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            min-width: -webkit-fill-available;
+            max-width: 1200px;
+        }
+        .project-card {
+            background: #cad8eb7d;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin: 15px;
+            padding: 20px;
+            flex: 1 1 calc(50% - 30px);
+            min-width: 250px;
+        }
+        @media (max-width: 768px) {
+            .project-card { flex: 1 1 calc(100% - 30px); }
+        }
+    </style>
+</head>
+<div style="min-height: 500px;padding-top: 4%;width: 80%;">
+
+
+
+    <input type="hidden" id="userId" value="{{ user.username }}">
+
+    <ul id="messages" class="container"></ul>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+        import { getDatabase, ref, onChildAdded, update } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-analytics.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDVDzE3TvAzt1gSOx5TSWzYBfZMEMPU0wc",
+            authDomain: "workproject-f7fad.firebaseapp.com",
+            projectId: "workproject-f7fad",
+            databaseURL: "https://workproject-f7fad-default-rtdb.firebaseio.com",
+            storageBucket: "workproject-f7fad.appspot.com",
+            messagingSenderId: "791273192526",
+            appId: "1:791273192526:web:9cad231e1775dad210171f",
+            measurementId: "G-835DXVDCZM"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        const db = getDatabase(app);
+        const messagesRef = ref(db, 'messages');
+
+        const userIdElement = document.getElementById('userId');
+        const userId = userIdElement.value;
+
+        // Listen for new messages
+        onChildAdded(messagesRef, (data) => {
+            const message = data.val();
+
+            if (message.receiver == userId && !message.read) {
+                const messageElement = document.createElement('li');
+                messageElement.className = 'project-card';
+                messageElement.innerHTML = `
+                    <p class="message-text">${message.message}</p>
+                    <span class="timestamp">${message.time}</span>
+                `;
+
+                document.getElementById('messages').appendChild(messageElement);
+
+              
+            }
+        });
+    </script>
+</div>
+  {% endblock %}

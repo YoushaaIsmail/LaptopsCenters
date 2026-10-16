@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Build Summary</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body style="background-color: #b2ceeb !important;">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Your Custom Build Summary</h2>
+
+    <ul class="list-group">
+        <li class="list-group-item"><strong>CPU:</strong> {{ cpu.name }}</li>
+        <li class="list-group-item"><strong>GPU:</strong> {{ gpu.name }}</li>
+        <li class="list-group-item"><strong>Motherboard:</strong> {{ motherboard.name }}</li>
+        <li class="list-group-item"><strong>RAM:</strong> {{ ram.name }} \ {{ram_quantity}}</li>
+        <li class="list-group-item"><strong>Storage:</strong> {{ storage.name }}</li>
+        <li class="list-group-item"><strong>Power Supply (PSU):</strong> {{ psu.name }}</li>
+        {% if cooler %}
+            <li class="list-group-item"><strong>Cooler:</strong> {{ cooler.name }}</li>
+        {% endif %}
+        <li class="list-group-item"><strong>total_price:</strong> {{ total_price }}</li>
+        {% if monitor %}
+            <li class="list-group-item"><strong>Monitor:</strong> {{ monitor.name }}</li>
+        {% endif %}
+    </ul>
+    <input name="countOrder" type="number" placeholder="Enter Count Max: {{min_cou}}">
+    <div class="mt-4 d-flex justify-content-between">
+        <a href="{% url 'select_cpu' %}" class="btn btn-secondary">Start Over</a>
+        <button class="btn btn-success">Confirm Build</button>  <!-- You can link this to a "confirm order" process -->
+    </div>
+</div>
+      </form>
+</body>
+</html>

@@ -1,0 +1,62 @@
+{% extends 'base1.html' %}
+{% block content %}
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-12">
+            <a href="{% url 'centerappp:getuserloction' iduser=cart.user.id %}">
+            <img src="{{cart.user.person.photo.url}}" style="width: 80px; height: 80px;border-radius: 10px; margin-right: 5px;">
+            </a>
+            <span>({{ cart.user.first_name }} {{ cart.user.last_name }} ({{ cart.user.person.phone }}))</span>
+            
+            <p>Shipping Cost: {{ cart.shipping_cost }}</p>
+            <p>Amount: {{ cart.Amount }}</p>
+            <p>State: {{ cart.State }}</p>
+          
+
+            <h3>Items in Cart:</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Image</th>
+                        <th>Price</th>
+                        <th>Type</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    <tr>
+                        <td>{{ item.his_prodect.name }}</td>
+                        <td>
+                            {% if item.his_prodect.photo %}
+                            <img src="{{ item.his_prodect.photo.url }}" style="width:60px; height:60px; border-radius:10%;">
+                            {% else %}
+                            No Image
+                            {% endif %}
+                        </td>
+                        <td>{{ item.his_prodect.price }}</td>
+                        <td>{{ item.HisType }}</td>
+                        <td>{{ item.count }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <form method="post" enctype="multipart/form-data">
+        {% csrf_token %} 
+                      <label>type</label>
+              <select name="state">
+                <option value="pendding">pending</option>
+                <option value="shipping">shipping</option>
+                <option value="In-store">In-store</option>
+                <option value="Order completed">Order completed</option>
+                
+               
+              </select>
+    <button> Change </button>
+    </form>
+            <a href="{% url 'centerappp:getAllCarts' %}" class="btn btn-secondary">Back to Carts</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

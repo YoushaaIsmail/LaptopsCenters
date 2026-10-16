@@ -1,0 +1,92 @@
+{% extends 'base1.html'%}
+{% load static%}
+
+{% block content%}
+<!--------main-content------------->
+		   
+		   <div class="main-content">
+			  <div class="row">
+			    
+				<div class="col-md-12">
+				<div class="table-wrapper">
+    <div class="table-title">
+      <div class="row">
+        <div class="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
+          <h2 class="ml-lg-2">Manage therapist</h2>
+        </div>
+        <div class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
+          <!-- <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal" style="background-color: #b3e5f7;color: rgb(29, 56, 145);">
+		  <i class="material-icons">&#xE147;</i> <span>Add New therapist</span></a> -->
+          <!-- <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
+		  <i class="material-icons">&#xE15C;</i> <span>Delete</span></a> --> 
+        </div>
+      </div>
+    </div>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>
+            <span class="custom-checkbox">
+								<input type="checkbox" id="selectAll">
+								<label for="selectAll"></label>
+							</span>
+          </th>
+          <th>name</th>
+          <th>Star</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in Rating %}
+        <tr>
+          <td>
+            <!-- <span class="custom-checkbox">
+			 <input type="checkbox" id="checkbox1" name="options[]" value="1"> 
+			<label for="checkbox1"></label>
+							</span> -->
+
+          </td>
+          <td>{{i.HisUser2.username}}</td>
+          <td>{{i.Star}}</td>
+<!--     
+          <td>
+            <a href="#">
+              <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+          <a href="#deleteEmployeeModal" class="delete" data-toggle="modal" onclick="setDeleteId('{{ i.id }}')">
+          <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+          </td> -->
+        </tr>{% endfor %}
+        
+      </tbody>
+    </table>
+    <div class="clearfix">
+      <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+      <ul class="pagination">
+        <li class="page-item disabled"><a href="#">Previous</a></li>
+        <li class="page-item active"><a href="#" class="page-link">1</a></li>
+        <li class="page-item"><a href="#" class="page-link">2</a></li>
+        <li class="page-item "><a href="#" class="page-link">3</a></li>
+        <li class="page-item"><a href="#" class="page-link">4</a></li>
+        <li class="page-item"><a href="#" class="page-link">5</a></li>
+        <li class="page-item"><a href="#" class="page-link">Next</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+		 
+			 <!---footer---->
+			 
+			 
+		</div>
+		
+		<footer class="footer">
+			    <div class="container-fluid">
+				  <div class="footer-in">
+                    <p class="mb-0">**TIKCOMPUTER**</p>
+                </div>
+				</div>
+			 </footer>
+</div>
+</div>
+
+{% endblock %}

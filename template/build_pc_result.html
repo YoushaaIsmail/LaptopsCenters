@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>PC Build Result</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body style="background-color: rgba(0, 85, 255, 0.68); color: white;">
+<div class="container mt-5" style="background-color: rgba(0, 85, 255, 0.68); color: white;">
+          <form method="post" enctype="multipart/form-data" action="{% url 'orderbuild_pc' %}">
+        {% csrf_token %}
+    <h1>Your PC Configuration</h1>
+    <p>Budget: {{ total_budget }} $ - Performance: {{ performance }}</p>
+
+    <ul class="list-group">
+        <li class="list-group-item" style="background-color: rgba(167, 195, 250, 0.68); color: white;">
+            <h4>CPU</h4>
+            <input type="hidden" name="cpu" value="{{cpu.id}}"/>
+            Name: {{ cpu.name }}<br />
+            Price: {{ cpu.price }} $<br />
+            Socket: {{ cpu.socket_type }}<br />
+        </li>
+        <li class="list-group-item" style="background-color: rgba(167, 195, 250, 0.68); color: white;">
+            <h4>GPU</h4>
+            <input type="hidden" name="gpu" value="{{gpu.id}}"/>
+            Name: {{ gpu.name }}<br />
+            Price: {{ gpu.price }} $<br />
+        </li>
+        <li class="list-group-item" style="background-color: rgba(167, 195, 250, 0.68); color: white;">
+            <h4>Motherboard</h4>
+            <input type="hidden" name="motherboard" value="{{motherboard.id}}" />
+            Name: {{ motherboard.name }}<br />
+            Price: {{ motherboard.price }} $<br />
+            RAM Slots: {{ motherboard.ram_slots }}<br />
+            M.2 Slots: {{ motherboard.m2_slots }}<br />
+            SATA Ports: {{ motherboard.sata_ports }}<br />
+        </li>
+        <li class="list-group-item" style="background-color: rgba(167, 195, 250, 0.68); color: white;">
+            <h4>RAM</h4>
+            <input type="hidden" name="ram" value="{{ram.id}}"/>
+            <input type="hidden" name="ram_modules_used" value="{{ram_modules_used}}"/>
+            Name: {{ ram.name }}<br />
+            Price per RAM module: {{ ram.price }} $<br />
+            Number of modules used: {{ ram_modules_used }}<br />
+            Total Capacity: {{ ram_total_capacity }} GB<br />
+            Total Price: {{ ram_total_price }} $<br />
+        </li>
+        <li class="list-group-item" style="background-color: rgba(167, 195, 250, 0.68); color: white;">
+            <h4>Storage</h4>
+            <input type="hidden" name="storage" value="{{storage.id}}" />
+            Name: {{ storage.name }}<br />
+            Price: {{ storage.price }} $<br />
+            Type: {{ storage.type }}<br />
+        </li>
+        <li class="list-group-item" style="background-color: rgba(167, 195, 250, 0.68); color: white;">
+            <h4>Power Supply Unit (PSU)</h4>
+            <input type="hidden" name="psu" value="{{psu.id}}" />
+            Name: {{ psu.name }}<br />
+            Price: {{ psu.price }} $<br />
+            Wattage: {{ psu.wattage }} W<br />
+            Efficiency: {{ psu.efficiency_rating }}<br />
+        </li>
+        <li class="list-group-item" style="background-color: rgba(167, 195, 250, 0.68); color: white;">
+            <h4>Cooler</h4>
+            <input type="hidden" name="cooler" value="{{cooler.id}}"/>
+            Name: {{ cooler.name }}<br />
+            Price: {{ cooler.price }} $<br />
+            TDP Rating: {{ cooler.tdp_rating }} W<br />
+            Height: {{ cooler.height }} mm<br />
+        </li>
+    </ul>
+
+    <h3 class="mt-4">Total Price: {{ total_price }} $</h3>
+    <input type="hidden" name="total_price" value="{{total_price}}" />
+    <input type="hidden" name="min_cou" value="{{min_cou}}"/>
+    <input placeholder="EnterCount Max({{min_cou}})" name="count"><br>
+ <button class="btn btn-secondary mt-4">OrderNow</button>
+    <a href="{% url 'build_pc' %}" class="btn btn-secondary mt-4">Build Another PC</a>
+          </form>
+</div>
+</body>
+</html>

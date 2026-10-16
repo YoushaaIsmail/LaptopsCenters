@@ -1,0 +1,149 @@
+{% extends 'base.html'%}
+{% load static%}
+
+{% block content%}
+
+  <main>
+    <article style="background-image: url('{%static 'images/R (2).jfif'%}');
+background-size: cover;         /* Makes the image scale to cover the entire container */
+background-position: center;    /* Keeps the image centered */
+background-repeat: no-repeat;   /* Prevents the image from repeating */
+">
+
+     
+
+
+ <section class="section blog" id="blog">
+  <div class="container">
+
+    
+
+          <div class="hero-form" style="margin: auto; margin-bottom: 3px;margin-top: 25px;">
+
+            <div class="input-wrapper">
+       <form method="post" action="{% url 'searchname' %}" enctype="multipart/form-data">
+        {% csrf_token %} 
+              <label for="input-1" class="input-label">Center Name</label>
+
+<div style="display: flex;justify-content: flex-start; gap: 10px;">
+             
+            <select name="name" class="input-field" style="width: 100%;height: 25px;">
+              <option value="">Select</option>
+              {% for i in allCenter%}
+              <option value="{{i.abouts1.name}}">{{i.abouts1.name}}</option>
+              {% endfor %}
+         
+           
+            </select>
+                        <button type="submit" style="background-color:hsl(204, 91%, 53%); 
+                        padding: 5px; color: white; border-radius: 5px;box-shadow: 1px 1px 1px gray;" >
+          <ion-icon name="search"></ion-icon>
+                        </button></div></form>
+            </div>
+                        <div class="input-wrapper">
+                              <form method="post" action="{% url 'filtertenant' %}" enctype="multipart/form-data">
+        {% csrf_token %} 
+              <label for="input-1" class="input-label">Center filter</label>
+              <div style="display: flex;justify-content: flex-start;gap: 10px;">
+<select name="service" class="input-field" style="width: 100%;height: 25px;">
+              <option value="">Select</option>
+              
+              <option value="MostRating">MostRating</option>
+              <option value="MostAdd">MostAdd</option>
+              <option value="Last">Last</option>
+              <option value="Last"></option>
+           
+            </select><button type="submit" style="background-color:hsl(204, 91%, 53%); 
+                        padding: 5px; color: white; border-radius: 5px;box-shadow: 1px 1px 1px gray;" >
+          <ion-icon name="filter"></ion-icon>
+                        </button>
+    
+            </div> </form></div>
+
+            <a href="{% url 'search_product_element' %}" type="submit" class="btn" style="align-self: center; height: 30px;">Find Prodact</a>
+
+          </div>
+    <ul class="blog-list has-scrollbar">
+      {% for i in allCenter %}
+      <li>
+        <div class="blog-card">
+
+          <figure class="card-banner">
+
+            <a href="{% url 'showcenterNewPc' idc=i.idtenant1 %}">
+              <img src="{{i.abouts1.photo.url}}" alt="Opening of new offices of the company" loading="lazy"
+                class="w-100">
+            </a>
+
+            <a href="{% url 'showlocation' idt=i.idtenant1 %}" class="btn card-badge" style="display: flex;"><ion-icon name="location"></ion-icon>
+              {{i.abouts1.Address}}</a>
+
+          </figure>
+
+          <div class="card-content">
+            <h3 class="h3 card-title" style="
+              display: flex; justify-content: space-between;
+              line-height: 1.6;font-weight: 700;font-size: 1.27rem;line-height: 0.5;">
+             <span> {{i.abouts1.name}}</span>
+             {% if i.abouts1.photo1 %} 
+              <small><a href="{{i.abouts1.photo1.url}}" >Show License Image</a></small>
+              {% endif %}
+            </h3>
+            <h3 class="h3 card-title">
+              {{i.abouts1.Des}}
+  
+            </h3>
+
+            <div class="card-meta" style="justify-content: space-around; margin: -10px;padding: 5px;border-radius: 5px;border: 1px solid black;">
+
+              <div class="publish-date" style="width: 30%; text-align: center;">
+                <ion-icon name="star" style="color: rgb(255, 255, 0);"></ion-icon>
+                <data value="114">
+                  <a href="{% url 'showRating' idt=i.idtenant1 %}" style="color: white;">Rating({{i.countRat1}})</a></data>
+                
+              </div>
+
+              <div class="comments" style="width: 30%;">
+                <ion-icon name="heart"></ion-icon>
+                
+
+                <a href="{% url 'showFav' idt=i.idtenant1 %}"><data value="114" style="color: white;">Favourite({{i.countFa1}})</data></a>
+              </div>
+
+             
+            </div>
+
+          </div>
+
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+
+  </div>
+</section>
+
+
+      <!-- 
+        - #GET START
+      -->
+
+
+
+
+
+      <!-- 
+        - #BLOG
+      -->
+
+    </article>
+  </main>
+
+
+
+
+
+  <!-- 
+    - #FOOTER
+  -->
+  {% endblock %}

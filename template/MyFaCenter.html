@@ -1,0 +1,29 @@
+{% extends 'base.html'%}
+{% load static%}
+
+{% block content%}
+
+{% if allcat %}
+<div style="padding-top: 7%;">
+    <h2 style="text-align: center;">Search Results</h2>
+    <div class="container-max-width" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 10px; padding: 20px;
+   ">
+        {% for item in allcat %}
+            <div style="border: 1px solid #ddd; border-radius: 10px; padding: 15px; box-shadow: 2px 2px 8px #aaa; max-width: 400px;">
+                {% if item.photo %}
+                    <img src="{{ item.photo.url }}" alt="{{ item.tenant_name }}" style="width: 100%; border-radius: 10px;height: 300px;">
+                {% endif %}
+                <p ><strong>Tenant:</strong> {{ item.name }}</p>
+                <p >{{ item.Des }}</p>
+                <a style="background: #1a9df4;
+    padding: 5px;
+    border-radius: 18px;
+    font-weight: 900;
+    color: white; text-align: center;" href="{% url 'showFav' idt=item.idten %}">show Favourite</a>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p style="text-align: center;">No results found.</p>
+{% endif %}</div>
+  {% endblock %}

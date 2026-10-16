@@ -1,0 +1,28 @@
+{% extends 'base.html'%}
+{% load static%}
+
+{% block content%}
+
+
+<form method="POST" action="{% url 'search_product_element' %}" style="max-width: 600px; margin: auto; margin-bottom: 2%;
+ padding: 20px; border: 1px solid #ddd; border-radius: 10px; box-shadow: 2px 2px 8px #aaa;margin-top: 7%;">
+    {% csrf_token %}
+    <h2 style="text-align: center; margin-bottom: 20px;">Search Products and Elements</h2>
+
+    <div style="margin-bottom: 15px;">
+        <label>Search Product Name:</label>
+        <input type="text" name="search_product_name" placeholder="Enter Product Name" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        <label>Search Element Name:</label>
+        <input type="text" name="search_element_name" placeholder="Enter Element Name" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+    </div>
+
+    <div style="text-align: center;">
+        <button type="submit" style="padding: 10px 20px; background-color: hsl(204, 91%, 53%); color: white; border: none; border-radius: 5px; cursor: pointer;">
+            Search
+        </button>
+    </div>
+</form>
+  {% endblock %}
